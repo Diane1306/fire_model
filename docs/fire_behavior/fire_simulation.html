@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.2" />
+<title>fire_behavior.fire_simulation API documentation</title>
+<meta name="description" content="This is a model for 2D wind-driven fire simulation in different conditions. Except that wind_fire_simulation() is simulated in cellular automata, all …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>fire_behavior.fire_simulation</code></h1>
+</header>
+<section id="section-intro">
+<p>This is a model for 2D wind-driven fire simulation in different conditions. Except that wind_fire_simulation() is simulated in cellular automata, all are simulated in analytic ways.</p>
+<p>The main reference paper for the wind_fire_simulation() is: Alexandridis, A., D. Vakalis, C.I. Siettos, and G.V. Bafas. “A Cellular Automata Model for Forest Fire Spread Prediction: The Case of the Wildfire That Swept through Spetses Island in 1990.” Applied Mathematics and Computation 204, no. 1 (October 2008): 191–201.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python
+# coding: utf-8
+
+&#34;&#34;&#34;
+This is a model for 2D wind-driven fire simulation in different conditions. Except that wind_fire_simulation() is simulated in cellular automata, all are simulated in analytic ways.
+
+The main reference paper for the wind_fire_simulation() is: Alexandridis, A., D. Vakalis, C.I. Siettos, and G.V. Bafas. “A Cellular Automata Model for Forest Fire Spread Prediction: The Case of the Wildfire That Swept through Spetses Island in 1990.” Applied Mathematics and Computation 204, no. 1 (October 2008): 191–201. 
+&#34;&#34;&#34;
+
+def homofire_nowind():
+    &#34;&#34;&#34;
+    Simulate fire on homogeneous field with no wind: fire spread rate is (sqrt{n+1} - sqrt{n})*r.
+    
+    Black shows burned area, red shows burning area, and white shows unburned area.
+    &#34;&#34;&#34;
+    import numpy as np
+    import matplotlib.pylab as plt
+
+    def show_animation(delay=.01):
+        &#34;&#34;&#34;Animate function to show animated figures. By Dirk Colbry.&#34;&#34;&#34;
+        from IPython.display import display, clear_output
+        import time
+        fig = plt.gcf()
+        # Sleep for half a second to slow down the animation
+        time.sleep(delay)
+        clear_output(wait=True)  # Clear output for dynamic display
+        display(fig)            # Reset display
+        fig.clear()             # Prevent overlapping and layered plots
+
+    r_homo = [1]
+    n = 1
+    r = 1
+    while r &gt; .1:
+        r = np.sqrt(n+1) - np.sqrt(n)
+        r_homo.append(r)
+        n = n + 1
+
+    radius = np.array(r_homo).cumsum()
+
+    for i in range(len(r_homo)-1):
+        &#34;&#34;&#34;Red color shows burning areas and black color represents burned areas.&#34;&#34;&#34;
+        if i == 0:
+            circle = plt.Circle((0, 0), radius[i], color=&#39;red&#39;)
+            ax = plt.gca()
+            ax.set_xlim((-6, 6))
+            ax.set_ylim((-6, 6))
+            ax.axis(&#39;square&#39;)
+            ax.add_artist(circle)
+        else:
+            circle1 = plt.Circle((0, 0), radius[i], color=&#39;black&#39;)
+            circle2 = plt.Circle((0, 0), radius[i+1], color=&#39;red&#39;)
+            ax = plt.gca()
+            ax.set_xlim((-6, 6))
+            ax.set_ylim((-6, 6))
+            ax.axis(&#39;square&#39;)
+            ax.add_artist(circle2)
+            ax.add_artist(circle1)
+        show_animation()
+
+
+def homofire_cwind():
+    &#34;&#34;&#34;
+    Simulate fire on homogeneous field with constant wind.
+    
+    Black shows burned area, red shows burning area, and white shows unburned area.
+    &#34;&#34;&#34;
+    import numpy as np
+    import matplotlib.pylab as plt
+
+    def show_animation(delay=.01):
+        &#34;&#34;&#34;Animate function to show animated figures. By Dirk Colbry.&#34;&#34;&#34;
+        from IPython.display import display, clear_output
+        import time
+        fig = plt.gcf()
+        # Sleep for half a second to slow down the animation
+        time.sleep(delay)
+        clear_output(wait=True)  # Clear output for dynamic display
+        display(fig)            # Reset display
+        fig.clear()             # Prevent overlapping and layered plots
+
+    r_homo = [1]
+    n = 1
+    r = 1
+    while r &gt; .1:
+        r = np.sqrt(n+1) - np.sqrt(n)
+        r_homo.append(r)
+        n = n + 1
+
+    radius = np.array(r_homo).cumsum()
+
+    def xy(t):
+        theta = np.linspace(0, 2*np.pi, 100)
+        a = radius[t] / t
+        g = 1.0
+        f = 2.0
+        h = 1.0
+        x = a * t * (f * np.cos(theta) + g)
+        y = a * t * h * np.sin(theta)
+        return x, y
+
+    for t in range(1, 20):
+        if t == 1:
+            x1, y1 = xy(t)
+            plt.fill(x1, y1, &#39;r&#39;)
+            plt.axis(&#39;square&#39;)
+            plt.xlim(-5, 15)
+            plt.ylim(-5, 5)
+        else:
+            x1, y1 = xy(t)
+            x2, y2 = xy(t+1)
+            plt.fill(x2, y2, &#39;r&#39;)
+            plt.fill(x1, y1, &#39;k&#39;)
+            plt.axis(&#39;square&#39;)
+            plt.xlim(-5, 15)
+            plt.ylim(-5, 5)
+        show_animation()
+
+
+def homofire_dwind():
+    &#34;&#34;&#34;Simulate fire on homogeneous field with constant wind which has a direction change with time.&#34;&#34;&#34;
+    import numpy as np
+    import matplotlib.pylab as plt
+
+    def show_animation(delay=.01):
+        &#34;&#34;&#34;Animate function to show animated figures. By Dirk Colbry.&#34;&#34;&#34;
+        from IPython.display import display, clear_output
+        import time
+        fig = plt.gcf()
+        # Sleep for half a second to slow down the animation
+        time.sleep(delay)
+        clear_output(wait=True)  # Clear output for dynamic display
+        display(fig)            # Reset display
+        fig.clear()             # Prevent overlapping and layered plots
+
+    r_homo = [1]
+    n = 1
+    r = 1
+    while r &gt; .1:
+        r = np.sqrt(n+1) - np.sqrt(n)
+        r_homo.append(r)
+        n = n + 1
+
+    radius = np.array(r_homo).cumsum()
+
+    pi = np.pi
+    cos = np.cos
+    sin = np.sin
+
+    theta = np.linspace(0, 2*pi, 100)
+    a = 1.0
+    g = 1.0
+    f = 2.0
+    h = 1.0
+    t0 = 1.0
+    x0 = a * t0 * (f * cos(theta) + g)
+    y0 = a * t0 * h * sin(theta)
+
+    def xy(x0, y0, t):
+        theta = np.linspace(0, 2*pi, 100)
+        beta = (pi / 6) * np.log(t)
+        a = radius[t] / t
+        g = 1.0
+        f = 2.0
+        h = 1.0
+        p = h * cos(beta) * cos(theta) + f * sin(beta) * sin(theta)
+        q = h * sin(beta) * cos(theta) - f * cos(beta) * sin(theta)
+        r = (p * p * f * f + q * q * h * h) ** (-.5)
+        x = x0 + a * t * (g * cos(beta) + r * (p * f*f *
+                                               cos(beta) + q * h*h * sin(beta)))
+        y = y0 + a * t * (g * sin(beta) + r * (p * f*f *
+                                               sin(beta) - q * h*h * cos(beta)))
+        return x, y
+
+    for t in range(1, 20):
+        if t == 1:
+            plt.fill(x0, y0, &#39;r&#39;)
+            plt.axis(&#39;square&#39;)
+            plt.xlim(-8, 15)
+            plt.ylim(-8, 15)
+        else:
+            x1, y1 = xy(x0, y0, t)
+            x2, y2 = xy(x0, y0, t+1)
+            plt.fill(x2, y2, &#39;r&#39;)
+            plt.fill(x1, y1, &#39;k&#39;)
+            plt.axis(&#39;square&#39;)
+            plt.xlim(-8, 15)
+            plt.ylim(-8, 15)
+        show_animation()
+
+
+# 2-D wind-driven fire simulation
+
+def wind_fire_simulation(wd):
+    &#34;&#34;&#34;Simulate wind-driven fire. Wind directions are needed: &#39;N&#39;, &#39;S&#39;, &#39;E&#39;, &#39;W&#39;, &#39;NW&#39;, &#39;NE&#39;, &#39;SE&#39;, &#39;SW&#39;.&#34;&#34;&#34;
+    import sys
+    import math
+    import random
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import copy
+    from matplotlib import colors as c
+
+    def show_animation(delay=.01):
+        &#34;&#34;&#34;Animate function to show animated figures. By Dirk Colbry.&#34;&#34;&#34;
+        from IPython.display import display, clear_output
+        import time
+        fig = plt.gcf()
+        # Sleep for half a second to slow down the animation
+        time.sleep(delay)
+        clear_output(wait=True)  # Clear output for dynamic display
+        display(fig)            # Reset display
+        fig.clear()             # Prevent overlapping and layered plots
+
+    # initialize environment
+
+    # number of rows and columns of grid
+    n_row = 300
+    n_col = 300
+    generation = 100
+
+    # the input wind direction decides the theta matrix used later. It&#39;s the angle between wind direction and fire spread direction.
+    if wd == &#39;S&#39;:
+        thetas = [[45, 0, 45],
+                  [90, 0, 90],
+                  [135, 180, 135]]
+    elif wd == &#39;N&#39;:
+        thetas = [[135, 180, 135],
+                  [90, 0, 90],
+                  [45, 0, 45]]
+    elif wd == &#39;W&#39;:
+        thetas = [[45, 90, 135],
+                  [0, 0, 180],
+                  [45, 90, 135]]
+    elif wd == &#39;E&#39;:
+        thetas = [[135, 90, 45],
+                  [180, 0, 0],
+                  [135, 90, 45]]
+    elif wd == &#39;NW&#39;:
+        thetas = [[90, 135, 180],
+                  [45, 0, 135],
+                  [0, 45, 90]]
+    elif wd == &#39;SW&#39;:
+        thetas = [[0, 45, 90],
+                  [45, 0, 135],
+                  [90, 135, 180]]
+    elif wd == &#39;SE&#39;:
+        thetas = [[90, 45, 0],
+                  [135, 0, 45],
+                  [180, 135, 90]]
+    elif wd == &#39;NE&#39;:
+        thetas = [[180, 135, 90],
+                  [135, 0, 45],
+                  [90, 45, 0]]
+    else:
+        return &#34;Not a valid wind direction for this simulation!!!&#34;
+
+    def init_vegetation():
+        &#34;&#34;&#34;Initiate vegetation array.&#34;&#34;&#34;
+        veg_matrix = [[0 for col in range(n_col)] for row in range(n_row)]
+        for i in range(n_row):
+            for j in range(n_col):
+                veg_matrix[i][j] = 1
+        return veg_matrix
+
+    def init_density():
+        &#34;&#34;&#34;Initiate density array.&#34;&#34;&#34;
+        den_matrix = [[0 for col in range(n_col)] for row in range(n_row)]
+        for i in range(n_row):
+            for j in range(n_col):
+                den_matrix[i][j] = 1
+        return den_matrix
+
+    def init_altitude():
+        &#34;&#34;&#34;Initiate altitude array.&#34;&#34;&#34;
+        alt_matrix = [[0 for col in range(n_col)] for row in range(n_row)]
+        for i in range(n_row):
+            for j in range(n_col):
+                alt_matrix[i][j] = 1
+        return alt_matrix
+
+    def init_forest():
+        &#34;&#34;&#34;Initiate forest array.&#34;&#34;&#34;
+        forest = [[1 for col in range(n_col)] for row in range(n_row)]
+        ignite_col = int(n_col//2)
+        ignite_row = int(n_row//2)
+        for row in range(ignite_row-2, ignite_row+2):
+            for col in range(ignite_col-2, ignite_col+2):
+                forest[row][col] = 2
+        return forest
+
+    def tg(x):
+        &#34;&#34;&#34;Calculate tangent(x) and convert into degrees.&#34;&#34;&#34;
+        return math.degrees(math.atan(x))
+
+    def get_slope(altitude_matrix):
+        &#34;&#34;&#34;Calculate slope from altitude.&#34;&#34;&#34;
+        slope_matrix = [[0 for col in range(n_col)] for row in range(n_row)]
+        for row in range(n_row):
+            for col in range(n_col):
+                sub_slope_matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+                if row == 0 or row == n_row-1 or col == 0 or col == n_col-1:  # margin is flat
+                    slope_matrix[row][col] = sub_slope_matrix
+                    continue
+                current_altitude = altitude_matrix[row][col]
+                sub_slope_matrix[0][0] = tg(
+                    (current_altitude - altitude_matrix[row-1][col-1])/1.414)
+                sub_slope_matrix[0][1] = tg(
+                    current_altitude - altitude_matrix[row-1][col])
+                sub_slope_matrix[0][2] = tg(
+                    (current_altitude - altitude_matrix[row-1][col+1])/1.414)
+                sub_slope_matrix[1][0] = tg(
+                    current_altitude - altitude_matrix[row][col-1])
+                sub_slope_matrix[1][1] = 0
+                sub_slope_matrix[1][2] = tg(
+                    current_altitude - altitude_matrix[row][col+1])
+                sub_slope_matrix[2][0] = tg(
+                    (current_altitude - altitude_matrix[row+1][col-1])/1.414)
+                sub_slope_matrix[2][1] = tg(
+                    current_altitude - altitude_matrix[row+1][col])
+                sub_slope_matrix[2][2] = tg(
+                    (current_altitude - altitude_matrix[row+1][col+1])/1.414)
+                slope_matrix[row][col] = sub_slope_matrix
+        return slope_matrix
+
+    def calc_pw(theta):
+        &#34;&#34;&#34;Calculate wind contribution for each cell.&#34;&#34;&#34;
+        c_1 = 0.045
+        c_2 = 0.131
+        V = 10
+        t = math.radians(theta)
+        ft = math.exp(V*c_2*(math.cos(t)-1))
+        return math.exp(c_1*V)*ft
+
+    def get_wind(thetas):
+        &#34;&#34;&#34;Get the wind matrix based on the neighbor cells.&#34;&#34;&#34;
+        wind_matrix = [[0 for col in [0, 1, 2]] for row in [0, 1, 2]]
+
+        for row in [0, 1, 2]:
+            for col in [0, 1, 2]:
+                wind_matrix[row][col] = calc_pw(thetas[row][col])
+        wind_matrix[1][1] = 0
+        return wind_matrix
+
+    def burn_or_not_burn(abs_row, abs_col, neighbour_matrix):
+        &#34;&#34;&#34;Determine if the cell is going to burn or not.&#34;&#34;&#34;
+        p_veg = {1: -0.3, 2: 0, 3: 0.4}[vegetation_matrix[abs_row][abs_col]]
+        p_den = {1: -0.4, 2: 0, 3: 0.3}[density_matrix[abs_row][abs_col]]
+        p_h = 0.58
+        a = 0.078
+
+        for row in [0, 1, 2]:
+            for col in [0, 1, 2]:
+                # we only care there is a neighbour that is burning
+                if neighbour_matrix[row][col] == 2:
+                    # print(row,col)
+                    slope = slope_matrix[abs_row][abs_col][row][col]
+                    p_slope = math.exp(a * slope)
+                    p_wind = wind_matrix[row][col]
+                    p_burn = p_h * (1 + p_veg) * (1 + p_den) * p_wind * p_slope
+                    if p_burn &gt; random.random():
+                        return 2  # start burning
+
+        return 1  # not burning
+
+    def update_forest(old_forest):
+        &#34;&#34;&#34;Update the forest status with loop.&#34;&#34;&#34;
+        result_forest = [[1 for i in range(n_col)] for j in range(n_row)]
+        for row in range(1, n_row-1):
+            for col in range(1, n_col-1):
+
+                if old_forest[row][col] == 3:
+                    # burnt down
+                    result_forest[row][col] = old_forest[row][col]
+                if old_forest[row][col] == 2:
+                    if random.random() &lt; 0.4:
+                        result_forest[row][col] = 2
+                    else:
+                        result_forest[row][col] = 3
+                if old_forest[row][col] == 1:
+                    neighbours = [[row_vec[col_vec] for col_vec in range(col-1, col+2)]
+                                  for row_vec in old_forest[row-1:row+2]]
+                    # print(neighbours)
+                    result_forest[row][col] = burn_or_not_burn(
+                        row, col, neighbours)
+
+        return result_forest
+
+    # start simulation
+    vegetation_matrix = init_vegetation()
+    density_matrix = init_density()
+    altitude_matrix = init_altitude()
+    wind_matrix = get_wind(thetas)
+    new_forest = init_forest()
+    slope_matrix = get_slope(altitude_matrix)
+
+    cMap = c.ListedColormap([&#39;g&#39;, &#39;r&#39;, &#39;k&#39;])
+    for k in range(generation):
+        new_forest = copy.deepcopy(update_forest(new_forest))
+        forest_array = np.array(new_forest)
+        plt.figure(figsize=(10, 8))
+        plt.pcolormesh(forest_array, cmap=cMap)
+        plt.colorbar(ticks=[1, 2, 3])
+        show_animation()
+    
+    return &#34;Simulation succeed!!&#34;</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="fire_behavior.fire_simulation.homofire_cwind"><code class="name flex">
+<span>def <span class="ident">homofire_cwind</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Simulate fire on homogeneous field with constant wind.</p>
+<p>Black shows burned area, red shows burning area, and white shows unburned area.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def homofire_cwind():
+    &#34;&#34;&#34;
+    Simulate fire on homogeneous field with constant wind.
+    
+    Black shows burned area, red shows burning area, and white shows unburned area.
+    &#34;&#34;&#34;
+    import numpy as np
+    import matplotlib.pylab as plt
+
+    def show_animation(delay=.01):
+        &#34;&#34;&#34;Animate function to show animated figures. By Dirk Colbry.&#34;&#34;&#34;
+        from IPython.display import display, clear_output
+        import time
+        fig = plt.gcf()
+        # Sleep for half a second to slow down the animation
+        time.sleep(delay)
+        clear_output(wait=True)  # Clear output for dynamic display
+        display(fig)            # Reset display
+        fig.clear()             # Prevent overlapping and layered plots
+
+    r_homo = [1]
+    n = 1
+    r = 1
+    while r &gt; .1:
+        r = np.sqrt(n+1) - np.sqrt(n)
+        r_homo.append(r)
+        n = n + 1
+
+    radius = np.array(r_homo).cumsum()
+
+    def xy(t):
+        theta = np.linspace(0, 2*np.pi, 100)
+        a = radius[t] / t
+        g = 1.0
+        f = 2.0
+        h = 1.0
+        x = a * t * (f * np.cos(theta) + g)
+        y = a * t * h * np.sin(theta)
+        return x, y
+
+    for t in range(1, 20):
+        if t == 1:
+            x1, y1 = xy(t)
+            plt.fill(x1, y1, &#39;r&#39;)
+            plt.axis(&#39;square&#39;)
+            plt.xlim(-5, 15)
+            plt.ylim(-5, 5)
+        else:
+            x1, y1 = xy(t)
+            x2, y2 = xy(t+1)
+            plt.fill(x2, y2, &#39;r&#39;)
+            plt.fill(x1, y1, &#39;k&#39;)
+            plt.axis(&#39;square&#39;)
+            plt.xlim(-5, 15)
+            plt.ylim(-5, 5)
+        show_animation()</code></pre>
+</details>
+</dd>
+<dt id="fire_behavior.fire_simulation.homofire_dwind"><code class="name flex">
+<span>def <span class="ident">homofire_dwind</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Simulate fire on homogeneous field with constant wind which has a direction change with time.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def homofire_dwind():
+    &#34;&#34;&#34;Simulate fire on homogeneous field with constant wind which has a direction change with time.&#34;&#34;&#34;
+    import numpy as np
+    import matplotlib.pylab as plt
+
+    def show_animation(delay=.01):
+        &#34;&#34;&#34;Animate function to show animated figures. By Dirk Colbry.&#34;&#34;&#34;
+        from IPython.display import display, clear_output
+        import time
+        fig = plt.gcf()
+        # Sleep for half a second to slow down the animation
+        time.sleep(delay)
+        clear_output(wait=True)  # Clear output for dynamic display
+        display(fig)            # Reset display
+        fig.clear()             # Prevent overlapping and layered plots
+
+    r_homo = [1]
+    n = 1
+    r = 1
+    while r &gt; .1:
+        r = np.sqrt(n+1) - np.sqrt(n)
+        r_homo.append(r)
+        n = n + 1
+
+    radius = np.array(r_homo).cumsum()
+
+    pi = np.pi
+    cos = np.cos
+    sin = np.sin
+
+    theta = np.linspace(0, 2*pi, 100)
+    a = 1.0
+    g = 1.0
+    f = 2.0
+    h = 1.0
+    t0 = 1.0
+    x0 = a * t0 * (f * cos(theta) + g)
+    y0 = a * t0 * h * sin(theta)
+
+    def xy(x0, y0, t):
+        theta = np.linspace(0, 2*pi, 100)
+        beta = (pi / 6) * np.log(t)
+        a = radius[t] / t
+        g = 1.0
+        f = 2.0
+        h = 1.0
+        p = h * cos(beta) * cos(theta) + f * sin(beta) * sin(theta)
+        q = h * sin(beta) * cos(theta) - f * cos(beta) * sin(theta)
+        r = (p * p * f * f + q * q * h * h) ** (-.5)
+        x = x0 + a * t * (g * cos(beta) + r * (p * f*f *
+                                               cos(beta) + q * h*h * sin(beta)))
+        y = y0 + a * t * (g * sin(beta) + r * (p * f*f *
+                                               sin(beta) - q * h*h * cos(beta)))
+        return x, y
+
+    for t in range(1, 20):
+        if t == 1:
+            plt.fill(x0, y0, &#39;r&#39;)
+            plt.axis(&#39;square&#39;)
+            plt.xlim(-8, 15)
+            plt.ylim(-8, 15)
+        else:
+            x1, y1 = xy(x0, y0, t)
+            x2, y2 = xy(x0, y0, t+1)
+            plt.fill(x2, y2, &#39;r&#39;)
+            plt.fill(x1, y1, &#39;k&#39;)
+            plt.axis(&#39;square&#39;)
+            plt.xlim(-8, 15)
+            plt.ylim(-8, 15)
+        show_animation()</code></pre>
+</details>
+</dd>
+<dt id="fire_behavior.fire_simulation.homofire_nowind"><code class="name flex">
+<span>def <span class="ident">homofire_nowind</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Simulate fire on homogeneous field with no wind: fire spread rate is (sqrt{n+1} - sqrt{n})*r.</p>
+<p>Black shows burned area, red shows burning area, and white shows unburned area.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def homofire_nowind():
+    &#34;&#34;&#34;
+    Simulate fire on homogeneous field with no wind: fire spread rate is (sqrt{n+1} - sqrt{n})*r.
+    
+    Black shows burned area, red shows burning area, and white shows unburned area.
+    &#34;&#34;&#34;
+    import numpy as np
+    import matplotlib.pylab as plt
+
+    def show_animation(delay=.01):
+        &#34;&#34;&#34;Animate function to show animated figures. By Dirk Colbry.&#34;&#34;&#34;
+        from IPython.display import display, clear_output
+        import time
+        fig = plt.gcf()
+        # Sleep for half a second to slow down the animation
+        time.sleep(delay)
+        clear_output(wait=True)  # Clear output for dynamic display
+        display(fig)            # Reset display
+        fig.clear()             # Prevent overlapping and layered plots
+
+    r_homo = [1]
+    n = 1
+    r = 1
+    while r &gt; .1:
+        r = np.sqrt(n+1) - np.sqrt(n)
+        r_homo.append(r)
+        n = n + 1
+
+    radius = np.array(r_homo).cumsum()
+
+    for i in range(len(r_homo)-1):
+        &#34;&#34;&#34;Red color shows burning areas and black color represents burned areas.&#34;&#34;&#34;
+        if i == 0:
+            circle = plt.Circle((0, 0), radius[i], color=&#39;red&#39;)
+            ax = plt.gca()
+            ax.set_xlim((-6, 6))
+            ax.set_ylim((-6, 6))
+            ax.axis(&#39;square&#39;)
+            ax.add_artist(circle)
+        else:
+            circle1 = plt.Circle((0, 0), radius[i], color=&#39;black&#39;)
+            circle2 = plt.Circle((0, 0), radius[i+1], color=&#39;red&#39;)
+            ax = plt.gca()
+            ax.set_xlim((-6, 6))
+            ax.set_ylim((-6, 6))
+            ax.axis(&#39;square&#39;)
+            ax.add_artist(circle2)
+            ax.add_artist(circle1)
+        show_animation()</code></pre>
+</details>
+</dd>
+<dt id="fire_behavior.fire_simulation.wind_fire_simulation"><code class="name flex">
+<span>def <span class="ident">wind_fire_simulation</span></span>(<span>wd)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Simulate wind-driven fire. Wind directions are needed: 'N', 'S', 'E', 'W', 'NW', 'NE', 'SE', 'SW'.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wind_fire_simulation(wd):
+    &#34;&#34;&#34;Simulate wind-driven fire. Wind directions are needed: &#39;N&#39;, &#39;S&#39;, &#39;E&#39;, &#39;W&#39;, &#39;NW&#39;, &#39;NE&#39;, &#39;SE&#39;, &#39;SW&#39;.&#34;&#34;&#34;
+    import sys
+    import math
+    import random
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import copy
+    from matplotlib import colors as c
+
+    def show_animation(delay=.01):
+        &#34;&#34;&#34;Animate function to show animated figures. By Dirk Colbry.&#34;&#34;&#34;
+        from IPython.display import display, clear_output
+        import time
+        fig = plt.gcf()
+        # Sleep for half a second to slow down the animation
+        time.sleep(delay)
+        clear_output(wait=True)  # Clear output for dynamic display
+        display(fig)            # Reset display
+        fig.clear()             # Prevent overlapping and layered plots
+
+    # initialize environment
+
+    # number of rows and columns of grid
+    n_row = 300
+    n_col = 300
+    generation = 100
+
+    # the input wind direction decides the theta matrix used later. It&#39;s the angle between wind direction and fire spread direction.
+    if wd == &#39;S&#39;:
+        thetas = [[45, 0, 45],
+                  [90, 0, 90],
+                  [135, 180, 135]]
+    elif wd == &#39;N&#39;:
+        thetas = [[135, 180, 135],
+                  [90, 0, 90],
+                  [45, 0, 45]]
+    elif wd == &#39;W&#39;:
+        thetas = [[45, 90, 135],
+                  [0, 0, 180],
+                  [45, 90, 135]]
+    elif wd == &#39;E&#39;:
+        thetas = [[135, 90, 45],
+                  [180, 0, 0],
+                  [135, 90, 45]]
+    elif wd == &#39;NW&#39;:
+        thetas = [[90, 135, 180],
+                  [45, 0, 135],
+                  [0, 45, 90]]
+    elif wd == &#39;SW&#39;:
+        thetas = [[0, 45, 90],
+                  [45, 0, 135],
+                  [90, 135, 180]]
+    elif wd == &#39;SE&#39;:
+        thetas = [[90, 45, 0],
+                  [135, 0, 45],
+                  [180, 135, 90]]
+    elif wd == &#39;NE&#39;:
+        thetas = [[180, 135, 90],
+                  [135, 0, 45],
+                  [90, 45, 0]]
+    else:
+        return &#34;Not a valid wind direction for this simulation!!!&#34;
+
+    def init_vegetation():
+        &#34;&#34;&#34;Initiate vegetation array.&#34;&#34;&#34;
+        veg_matrix = [[0 for col in range(n_col)] for row in range(n_row)]
+        for i in range(n_row):
+            for j in range(n_col):
+                veg_matrix[i][j] = 1
+        return veg_matrix
+
+    def init_density():
+        &#34;&#34;&#34;Initiate density array.&#34;&#34;&#34;
+        den_matrix = [[0 for col in range(n_col)] for row in range(n_row)]
+        for i in range(n_row):
+            for j in range(n_col):
+                den_matrix[i][j] = 1
+        return den_matrix
+
+    def init_altitude():
+        &#34;&#34;&#34;Initiate altitude array.&#34;&#34;&#34;
+        alt_matrix = [[0 for col in range(n_col)] for row in range(n_row)]
+        for i in range(n_row):
+            for j in range(n_col):
+                alt_matrix[i][j] = 1
+        return alt_matrix
+
+    def init_forest():
+        &#34;&#34;&#34;Initiate forest array.&#34;&#34;&#34;
+        forest = [[1 for col in range(n_col)] for row in range(n_row)]
+        ignite_col = int(n_col//2)
+        ignite_row = int(n_row//2)
+        for row in range(ignite_row-2, ignite_row+2):
+            for col in range(ignite_col-2, ignite_col+2):
+                forest[row][col] = 2
+        return forest
+
+    def tg(x):
+        &#34;&#34;&#34;Calculate tangent(x) and convert into degrees.&#34;&#34;&#34;
+        return math.degrees(math.atan(x))
+
+    def get_slope(altitude_matrix):
+        &#34;&#34;&#34;Calculate slope from altitude.&#34;&#34;&#34;
+        slope_matrix = [[0 for col in range(n_col)] for row in range(n_row)]
+        for row in range(n_row):
+            for col in range(n_col):
+                sub_slope_matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+                if row == 0 or row == n_row-1 or col == 0 or col == n_col-1:  # margin is flat
+                    slope_matrix[row][col] = sub_slope_matrix
+                    continue
+                current_altitude = altitude_matrix[row][col]
+                sub_slope_matrix[0][0] = tg(
+                    (current_altitude - altitude_matrix[row-1][col-1])/1.414)
+                sub_slope_matrix[0][1] = tg(
+                    current_altitude - altitude_matrix[row-1][col])
+                sub_slope_matrix[0][2] = tg(
+                    (current_altitude - altitude_matrix[row-1][col+1])/1.414)
+                sub_slope_matrix[1][0] = tg(
+                    current_altitude - altitude_matrix[row][col-1])
+                sub_slope_matrix[1][1] = 0
+                sub_slope_matrix[1][2] = tg(
+                    current_altitude - altitude_matrix[row][col+1])
+                sub_slope_matrix[2][0] = tg(
+                    (current_altitude - altitude_matrix[row+1][col-1])/1.414)
+                sub_slope_matrix[2][1] = tg(
+                    current_altitude - altitude_matrix[row+1][col])
+                sub_slope_matrix[2][2] = tg(
+                    (current_altitude - altitude_matrix[row+1][col+1])/1.414)
+                slope_matrix[row][col] = sub_slope_matrix
+        return slope_matrix
+
+    def calc_pw(theta):
+        &#34;&#34;&#34;Calculate wind contribution for each cell.&#34;&#34;&#34;
+        c_1 = 0.045
+        c_2 = 0.131
+        V = 10
+        t = math.radians(theta)
+        ft = math.exp(V*c_2*(math.cos(t)-1))
+        return math.exp(c_1*V)*ft
+
+    def get_wind(thetas):
+        &#34;&#34;&#34;Get the wind matrix based on the neighbor cells.&#34;&#34;&#34;
+        wind_matrix = [[0 for col in [0, 1, 2]] for row in [0, 1, 2]]
+
+        for row in [0, 1, 2]:
+            for col in [0, 1, 2]:
+                wind_matrix[row][col] = calc_pw(thetas[row][col])
+        wind_matrix[1][1] = 0
+        return wind_matrix
+
+    def burn_or_not_burn(abs_row, abs_col, neighbour_matrix):
+        &#34;&#34;&#34;Determine if the cell is going to burn or not.&#34;&#34;&#34;
+        p_veg = {1: -0.3, 2: 0, 3: 0.4}[vegetation_matrix[abs_row][abs_col]]
+        p_den = {1: -0.4, 2: 0, 3: 0.3}[density_matrix[abs_row][abs_col]]
+        p_h = 0.58
+        a = 0.078
+
+        for row in [0, 1, 2]:
+            for col in [0, 1, 2]:
+                # we only care there is a neighbour that is burning
+                if neighbour_matrix[row][col] == 2:
+                    # print(row,col)
+                    slope = slope_matrix[abs_row][abs_col][row][col]
+                    p_slope = math.exp(a * slope)
+                    p_wind = wind_matrix[row][col]
+                    p_burn = p_h * (1 + p_veg) * (1 + p_den) * p_wind * p_slope
+                    if p_burn &gt; random.random():
+                        return 2  # start burning
+
+        return 1  # not burning
+
+    def update_forest(old_forest):
+        &#34;&#34;&#34;Update the forest status with loop.&#34;&#34;&#34;
+        result_forest = [[1 for i in range(n_col)] for j in range(n_row)]
+        for row in range(1, n_row-1):
+            for col in range(1, n_col-1):
+
+                if old_forest[row][col] == 3:
+                    # burnt down
+                    result_forest[row][col] = old_forest[row][col]
+                if old_forest[row][col] == 2:
+                    if random.random() &lt; 0.4:
+                        result_forest[row][col] = 2
+                    else:
+                        result_forest[row][col] = 3
+                if old_forest[row][col] == 1:
+                    neighbours = [[row_vec[col_vec] for col_vec in range(col-1, col+2)]
+                                  for row_vec in old_forest[row-1:row+2]]
+                    # print(neighbours)
+                    result_forest[row][col] = burn_or_not_burn(
+                        row, col, neighbours)
+
+        return result_forest
+
+    # start simulation
+    vegetation_matrix = init_vegetation()
+    density_matrix = init_density()
+    altitude_matrix = init_altitude()
+    wind_matrix = get_wind(thetas)
+    new_forest = init_forest()
+    slope_matrix = get_slope(altitude_matrix)
+
+    cMap = c.ListedColormap([&#39;g&#39;, &#39;r&#39;, &#39;k&#39;])
+    for k in range(generation):
+        new_forest = copy.deepcopy(update_forest(new_forest))
+        forest_array = np.array(new_forest)
+        plt.figure(figsize=(10, 8))
+        plt.pcolormesh(forest_array, cmap=cMap)
+        plt.colorbar(ticks=[1, 2, 3])
+        show_animation()
+    
+    return &#34;Simulation succeed!!&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="fire_behavior" href="index.html">fire_behavior</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="fire_behavior.fire_simulation.homofire_cwind" href="#fire_behavior.fire_simulation.homofire_cwind">homofire_cwind</a></code></li>
+<li><code><a title="fire_behavior.fire_simulation.homofire_dwind" href="#fire_behavior.fire_simulation.homofire_dwind">homofire_dwind</a></code></li>
+<li><code><a title="fire_behavior.fire_simulation.homofire_nowind" href="#fire_behavior.fire_simulation.homofire_nowind">homofire_nowind</a></code></li>
+<li><code><a title="fire_behavior.fire_simulation.wind_fire_simulation" href="#fire_behavior.fire_simulation.wind_fire_simulation">wind_fire_simulation</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

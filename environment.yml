@@ -1,0 +1,16 @@
+name: fire_simulation_cmse802
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - ipython
+  - matplotlib
+  - numpy
+  - pdoc3
+  - pip
+  - pylint
+  - pytest
+  - scipy
+  - time
+prefix: fire_simulation_cmse802/envs
+
